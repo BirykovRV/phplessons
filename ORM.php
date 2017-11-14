@@ -7,6 +7,7 @@ class ORM
 	private $dbType;
 	private $username;
 	private $password;
+
 	public $sql;
 	public $table;
 	public $data;
@@ -23,14 +24,18 @@ class ORM
 		$str = '?';
 		$count = str_word_count($this->sql);
 
-		for ($i = 0; $i < $count-1 ; $i++) 
+		if ($count == 1) 
 		{
-			if ($count == 1) 
-			{
-				break;
-			}
-			$str .= ', ?';
+			return $str; 
 		}
+		else
+		{
+			for ($i = 0; $i < $count-1 ; $i++) 
+			{
+
+				$str .= ', ?';
+			}
+		}		
 		return $str;
 	}
 
