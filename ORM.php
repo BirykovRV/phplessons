@@ -58,9 +58,9 @@ class ORM
 		$this->DBH = null;
 	}
 
-	public function SelectOne()
+	public function SelectRow($limit)
 	{		 
-		$this->STH = $this->DBH->prepare("SELECT * FROM $this->table WHERE $this->sql LIMIT 1");		
+		$this->STH = $this->DBH->prepare("SELECT * FROM $this->table WHERE $this->sql LIMIT $limit");		
 		$this->STH->execute($this->data);
 		if ($row = $this->STH->fetch()) 
 		{

@@ -5,10 +5,11 @@ $db->Connect();
 $db->table = 'users';
 
 $db->sql = 'login = ?';
-$db->data = array('roman');
+$db->data = array('Roman');
 
-$row = $db->SelectOne();
-echo $row['login'];
+//$row = $db->SelectRow(2);
+$row = $db->SelectAll();
+ echo $row['login'];
 
 $data = $_POST;
 

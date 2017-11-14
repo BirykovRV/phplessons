@@ -8,4 +8,3 @@ $password = "";
 
 $db = new ORM($dbType, $username, $password);
 session_start();
-?>
