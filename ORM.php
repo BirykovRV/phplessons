@@ -18,6 +18,22 @@ class ORM
 		$this->password = $password;
 	}
 
+	private function valueCoun()
+	{
+		$str = '?';
+		$count = str_word_count($this->sql);
+
+		for ($i = 0; $i < $count-1 ; $i++) 
+		{
+			if ($count == 1) 
+			{
+				break;
+			}
+			$str .= ', ?';
+		}
+		return $str;
+	}
+
 	public function Connect()
 	{
 		try 
@@ -52,18 +68,20 @@ class ORM
 	}
 
 	public function SelectAll($table, $sql, $data)
-	{		 
-		$this->STH = $this->DBH->prepare("SELECT * FROM $table WHERE $sql");		
+	{
+		$this->STH = $this->DBH->prepare("SELECT * FROM $this->table WHERE $this->sql");		
 		$this->STH->execute($data);
 		return $row = $this->STH->fetch();
 	}
 
-	public function Insert($table, $sql, $data)
-	{
-		$this->STH = $this->DBH->prepare("INSERT INTO $table ($sql) VALUES (?, ?)");
+	public function Insert()
+	{	
+		$values = $this->valueCoun();
+
+		$this->STH = $this->DBH->prepare("INSERT INTO $this->table ($this->sql) VALUES ($values)");
 		try 
 		{
-			$this->STH->execute($data);
+			$this->STH->execute($this->data);
 			return true;
 		} 
 		catch (Exception $e) 

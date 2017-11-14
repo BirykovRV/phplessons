@@ -7,10 +7,14 @@
 
 	if (isset($data['signup'])) 
 	{
-		$errors = array();
 		$name = htmlspecialchars($data['username']);
 		$pass = password_hash($data['pass'], PASSWORD_DEFAULT);
-		$user = $db->Insert('users', 'login, password', array($name, $pass));
+		$errors = array();
+		$db->table = 'users';
+		$db->sql = 'login, password';
+		$db->data = array($name, $pass);
+		
+		$user = $db->Insert();
 		if ($user) 
 		{
 			// Все хорошо, пользователь найден
