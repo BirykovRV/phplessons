@@ -2,7 +2,7 @@
 
 	require_once 'ORM.php';
 
-	$dbType = "mysql:host=localhost;dbname=myDB";
+	$dbType = "mysql:host=localhost;dbname=mydb";
 	$username = "root";
 	$password = "";
 

@@ -7,6 +7,9 @@ class ORM
 	private $dbType;
 	private $username;
 	private $password;
+	public $sql;
+	public $table;
+	public $data;
 
 	public function __construct($dbType, $username, $password)
 	{
@@ -23,7 +26,7 @@ class ORM
 			$this->DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->DBH->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);			
 		} 
-		catch (PDOException $e) 
+		catch (PDOException $e)
 		{
 			echo 'Connection failed: ' . $e->getMessage();;
 		}
@@ -52,9 +55,20 @@ class ORM
 	{		 
 		$this->STH = $this->DBH->prepare("SELECT * FROM $table WHERE $sql");		
 		$this->STH->execute($data);
-		while ($row = $this->STH->fetch()) 
-		{			
-			var_dump($row);
-		}			
+		return $row = $this->STH->fetch();
+	}
+
+	public function Insert($table, $sql, $data)
+	{
+		$this->STH = $this->DBH->prepare("INSERT INTO $table ($sql) VALUES (?, ?)");
+		try 
+		{
+			$this->STH->execute($data);
+			return true;
+		} 
+		catch (Exception $e) 
+		{
+			return false;
+		}
 	}
 }
