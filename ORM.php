@@ -53,13 +53,13 @@ class ORM
 		$this->DBH = null;
 	}
 
-	public function SelectOne($table, $sql = NULL, $data = array())
+	public function SelectOne()
 	{		 
-		$this->STH = $this->DBH->prepare("SELECT * FROM $table WHERE $sql LIMIT 1");		
-		$this->STH->execute($data);
+		$this->STH = $this->DBH->prepare("SELECT * FROM $this->table WHERE $this->sql LIMIT 1");		
+		$this->STH->execute($this->data);
 		if ($row = $this->STH->fetch()) 
 		{
-			var_dump($row);
+			return $row;
 		}
 		else 
 		{
@@ -67,10 +67,10 @@ class ORM
 		}		
 	}
 
-	public function SelectAll($table, $sql, $data)
+	public function SelectAll()
 	{
 		$this->STH = $this->DBH->prepare("SELECT * FROM $this->table WHERE $this->sql");		
-		$this->STH->execute($data);
+		$this->STH->execute($this->data);
 		return $row = $this->STH->fetch();
 	}
 
