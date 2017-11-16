@@ -1,33 +1,4 @@
-<?php
-require_once 'dbconnection.php';
-
-$db->Connect();
-$table = 'users';
-
-$data = $_POST;
-
-if (isset($data['signup']))
-{
-	$name = htmlspecialchars($data['username']);
-	$pass = password_hash($data['pass'], PASSWORD_DEFAULT);
-	$message = array();
-
-	$query = 'login, password';
-	$data = array($name, $pass);
-
-	$user = $db->Save($table, $query, $data);
-	if ($user)
-	{
-			// Все хорошо,  пользователь зарегистрирован
-		$message[] = 'Вы успешно зарегистрировались!';
-	}
-	else
-	{
-		$message[] = 'Ошибка добавления пользователя в БД!';
-	}
-}
-
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -36,9 +7,15 @@ if (isset($data['signup']))
     <title>Главное меню</title>
   </head>
   <body>
-    <a href="reg_view.php">Регистрация</a><br>
-    <a href="auth_view.php">Авторизация</a>
 
+		<?php if (empty($_SESSION['username'])):?>
+    <a href="reg_view.php">Регистрация</a><br>
+    <a href="auth_view.php">Авторизация</a><br>
+		<?php else: ?>
+		<p><?php echo "Добро пожаловать, " . $_SESSION['username']; ?></p>
+		<a href="logout.php" >Выход</a><br>
+		<?php endif ?>
+		<a href="callback_view.php">Форма обратной связи</a>
 
     <script src="http://localhost:35729/livereload.js" charset="utf-8"></script>
   </body>

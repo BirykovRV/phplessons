@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,15 +6,35 @@
     <title>Регистрация</title>
   </head>
   <body>
-    <form action="#" onsubmit="return validateForm()" method="post" name="reg_form">
-        <p>Имя:</p>
-        <p id="demo"></p>
-        <input type="text" id="username" name="username" placeholder="Имя">
-        <p>Пароль:</p>
-        <input type="text" name="username" placeholder="Пароль">
-        <p>E-mail:</p>
-        <input type="text" name="username" placeholder="E-mail">
-        <p><input type="submit" name="signup" value="OK"></p>
+    <a href="/">Главная</a>
+    <p>Форма регистрации</p>
+    <?php if (!empty($_SESSION['err_message'])): ?>
+      <p style="color: red;"><?php echo $_SESSION['err_message']; unset($_SESSION['err_message']); ?></p>
+    <?php elseif(!empty($_SESSION['message'])): ?>
+      <p style="color: green;"><?php echo $_SESSION['message']; unset($_SESSION['message']); ?></p>
+    <?php endif ?>
+    <form action="reg.php" onsubmit="return validateForm()" method="post" name="reg_form">
+      <table>
+        <tr>
+          <td>Имя:</td>
+          <td><input type="text" id="username" name="username" placeholder="Имя"></td>
+        </tr>
+        <tr>
+          <td>Пароль:</td>
+          <td><input type="password" name="password" placeholder="Пароль"></td>
+        </tr>
+        <tr>
+          <td>Повторите пароль:</td>
+          <td><input type="password" name="confirm_password" placeholder="Повторите пароль"></td>
+        </tr>
+        <tr>
+          <td>E-mail:</td>
+          <td><input type="text" name="email" placeholder="E-mail"></td>
+        </tr>
+        <tr>
+          <td colspan="2"><input type="submit" name="signin" value="OK" style="width: 100%;"></td>
+        </tr>
+      </table>
     </form>
 
 
