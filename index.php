@@ -2,14 +2,14 @@
 require_once 'dbconnection.php';
 
 $db->Connect();
-$db->table = 'users';
-
-$db->sql = 'login = ?';
-$db->data = array('Roman');
+$table = 'users';
+$query = 'login = ?';
+$data = array('Roman');
 //
 //$row = $db->SelectRow(2);
-$row = $db->SelectAll();
- echo $row['login'];
+$row = $db->Find($table, $query, $data);
+echo "Привет, " . $row['login'];
+
 
 $data = $_POST;
 
@@ -19,20 +19,19 @@ if (isset($data['signup']))
 	$pass = password_hash($data['pass'], PASSWORD_DEFAULT);
 	$message = array();
 
-	$db->sql = 'login, password';
-	$db->data = array($name, $pass);
+	$query = 'login, password';
+	$data = array($name, $pass);
 
-	$user = $db->Insert();
+	$user = $db->Save($table, $query, $data);
 	if ($user)
 	{
 			// Все хорошо,  пользователь зарегистрирован
 		$message[] = 'Вы успешно зарегистрировались!';
-		echo '<p style="color: green;">' .array($message[0]). '</p>';
 	}
 	else
 	{
 		$message[] = 'Ошибка добавления пользователя в БД!';
-		echo '<p>'.array($message[0]).'</p>';
+
 	}
 }
 

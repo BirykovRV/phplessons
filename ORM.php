@@ -1,7 +1,7 @@
 <?php
 
 class ORM
-{    
+{
 	private $DBH;
 	private $STH;
 	private $dbType;
@@ -19,34 +19,34 @@ class ORM
 		$this->password = $password;
 	}
 
-	private function valueCoun()
+	private function valueCoun($query)
 	{
 		$str = '?';
-		$count = str_word_count($this->sql);
+		$count = str_word_count($query);
 
-		if ($count == 1) 
+		if ($count == 1)
 		{
-			return $str; 
+			return $str;
 		}
 		else
 		{
-			for ($i = 0; $i < $count-1 ; $i++) 
+			for ($i = 0; $i < $count-1 ; $i++)
 			{
 
 				$str .= ', ?';
 			}
-		}		
+		}
 		return $str;
 	}
 
 	public function Connect()
 	{
-		try 
-		{    		
+		try
+		{
 			$this->DBH = new PDO($this->dbType, $this->username, $this->password);
 			$this->DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$this->DBH->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);			
-		} 
+			$this->DBH->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+		}
 		catch (PDOException $e)
 		{
 			echo 'Connection failed: ' . $e->getMessage();;
@@ -58,38 +58,24 @@ class ORM
 		$this->DBH = null;
 	}
 
-	public function SelectRow($limit)
-	{		 
-		$this->STH = $this->DBH->prepare("SELECT * FROM $this->table WHERE $this->sql LIMIT $limit");		
-		$this->STH->execute($this->data);
-		if ($row = $this->STH->fetch()) 
-		{
-			return $row;
-		}
-		else 
-		{
-			echo '<p>В таблице не найдено ни одной записи(</p>';
-		}		
-	}
-
-	public function SelectAll()
+	public function Find($table, $query = NULL, $data = array())
 	{
-		$this->STH = $this->DBH->prepare("SELECT * FROM $this->table WHERE $this->sql");		
-		$this->STH->execute($this->data);
+		$this->STH = $this->DBH->prepare("SELECT * FROM $table WHERE $query");
+		$this->STH->execute($data);
 		return $row = $this->STH->fetch();
 	}
 
-	public function Insert()
-	{	
-		$values = $this->valueCoun();
+	public function Save($table, $query = NULL, $data = array())
+	{
+		$values = $this->valueCoun($query);
 
-		$this->STH = $this->DBH->prepare("INSERT INTO $this->table ($this->sql) VALUES ($values)");
-		try 
+		$this->STH = $this->DBH->prepare("INSERT INTO $table ($query) VALUES ($values)");
+		try
 		{
-			$this->STH->execute($this->data);
+			$this->STH->execute($data);
 			return true;
-		} 
-		catch (Exception $e) 
+		}
+		catch (Exception $e)
 		{
 			return false;
 		}
