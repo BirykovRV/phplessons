@@ -3,13 +3,6 @@ require_once 'dbconnection.php';
 
 $db->Connect();
 $table = 'users';
-$query = 'login = ?';
-$data = array('Roman');
-//
-//$row = $db->SelectRow(2);
-$row = $db->Find($table, $query, $data);
-echo "Привет, " . $row['login'];
-
 
 $data = $_POST;
 
@@ -31,15 +24,22 @@ if (isset($data['signup']))
 	else
 	{
 		$message[] = 'Ошибка добавления пользователя в БД!';
-
 	}
 }
 
 ?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
 
-<dir><?php echo array_shift($message) ?></dir>
-<form action="index.php" method="post">
-	<p>Name:<input type="text" name="username"></p>
-	<p>Password:<input type="password" name="pass"></p>
-	<p><input type="submit" name="signup" value="Add"></p>
-</form>
+    <title>Главное меню</title>
+  </head>
+  <body>
+    <a href="reg_view.php">Регистрация</a><br>
+    <a href="auth_view.php">Авторизация</a>
+
+
+    <script src="http://localhost:35729/livereload.js" charset="utf-8"></script>
+  </body>
+</html>
