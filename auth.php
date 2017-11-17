@@ -26,13 +26,13 @@ if (isset($data['signup'])) {
         echo "Вы успешно авторизовались!";
       }
       else {
-        header('Refresh: 4; url="http://phplessons:8080/auth_view.php"');
-        echo "Логин и/или пароль не верны!";
+        header('Location:http://phplessons:8080/auth_view.php');
+        $_SESSION['err_message'] = "Логин и/или пароль не верны!";
       }
     }
     else {
-      header('Refresh: 3; url="http://phplessons:8080/auth_view.php"');
-      echo "Такого пользователя нет!";
+      header('Location:http://phplessons:8080/auth_view.php');
+      $_SESSION['err_message'] = "Такого пользователя нет!";
     }
   }
 }

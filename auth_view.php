@@ -14,7 +14,11 @@ if (isset($_SESSION['username'])) {
     <a href="/">Главная</a>
 
     <p>Форма авторизация</p>
-
+    <?php if (!empty($_SESSION['err_message'])): ?>
+      <p style="color: red;"><?php echo $_SESSION['err_message']; unset($_SESSION['err_message']); ?></p>
+    <?php elseif(!empty($_SESSION['message'])): ?>
+      <p style="color: green;"><?php echo $_SESSION['message']; unset($_SESSION['message']); ?></p>
+    <?php endif ?>
     <form action="auth.php" method="post" name="auth_form">
       <table>
         <tr>
