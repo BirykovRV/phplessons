@@ -1,3 +1,14 @@
+<?php
+require_once 'dbconnection.php';
+$db->Connect();
+if(empty($_SESSION['user']))
+{
+  //если не зареган и перешел напрямую
+  header('Location: /');
+}
+$userid = $_SESSION['user']['userid'];
+$articles = $db->FindAll('articles', 'userid = ?', array($userid));
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,6 +18,11 @@
   <body>
 
 <a href="/">Главная</a>
+<?php if (!empty($_SESSION['err_message'])): ?>
+  <p style="color: red;"><?php echo $_SESSION['err_message']; unset($_SESSION['err_message']); ?></p>
+<?php elseif(!empty($_SESSION['message'])): ?>
+  <p style="color: green;"><?php echo $_SESSION['message']; unset($_SESSION['message']); ?></p>
+<?php endif ?>
 <form action="articles.php" method="post">
   <table>
     <tr>
@@ -23,15 +39,13 @@
   </table>
 </form>
 
-
-
-
-
-
-
-
-
-
+<?php
+foreach ($articles as $key => $value) {
+  if ($value['userid'] == $userid) {
+    echo $value['article'] . "<br>";
+  }
+}
+?>
 
     <script src="http://localhost:35729/livereload.js" charset="utf-8"></script>
   </body>

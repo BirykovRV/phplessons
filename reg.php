@@ -25,7 +25,6 @@ if (isset($data['signin']) && !empty($data['password']) && !empty($data['confirm
 	$name = htmlspecialchars($data['username']);
   //хэшируем пароль
 	$pass = password_hash($data['password'], PASSWORD_DEFAULT);
-	$message = array();
   //переменна для колонок куда записать данные
 	$query = 'login, password, email';
   //массив что записать в колонки

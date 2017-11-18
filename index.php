@@ -8,16 +8,15 @@
   </head>
   <body>
 
-		<?php if (empty($_SESSION['username'])):?>
+		<?php if (empty($_SESSION['user'])):?>
     <a href="reg_view.php">Регистрация</a><br>
     <a href="auth_view.php">Авторизация</a><br>
 		<?php else: ?>
-		<p><?php echo "Добро пожаловать, " . $_SESSION['username'] . "."; ?></p>
+		<p>Добро пожаловать, <?php echo $_SESSION['user']['login']; ?></p>
     <a href="add_article.php">Добавить статью</a><br>
 		<a href="logout.php" >Выход</a><br>
 		<?php endif ?>
 		<a href="callback_view.php">Форма обратной связи</a>
-
     <script src="http://localhost:35729/livereload.js" charset="utf-8"></script>
   </body>
 </html>

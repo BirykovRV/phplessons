@@ -60,9 +60,24 @@ class ORM
 
 	public function Find($table, $query = NULL, $data = array())
 	{
-		$this->STH = $this->DBH->prepare("SELECT * FROM $table WHERE $query");
-		$this->STH->execute($data);
-		return $row = $this->STH->fetch();
+		try {
+			$this->STH = $this->DBH->prepare("SELECT * FROM $table WHERE $query");
+			$this->STH->execute($data);
+			return $row = $this->STH->fetch();
+		} catch (PDOException $e) {
+			return $e->getMessage();
+		}
+	}
+
+	public function FindAll($table, $query = NULL, $data = array())
+	{
+		try {
+			$this->STH = $this->DBH->prepare("SELECT * FROM $table WHERE $query");
+			$this->STH->execute($data);
+			return $row = $this->STH->fetchAll();
+		} catch (PDOException $e) {
+			return $e->getMessage();
+		}
 	}
 
 	public function Save($table, $query = NULL, $data = array())
@@ -75,9 +90,9 @@ class ORM
 			$this->STH->execute($data);
 			return true;
 		}
-		catch (Exception $e)
+		catch (PDOException $e)
 		{
-			return false;
+			return $e;
 		}
 	}
 }

@@ -1,4 +1,4 @@
 <?php
 require_once 'dbconnection.php';
-unset($_SESSION['username']);
+unset($_SESSION['user']);
 header('Location: /');

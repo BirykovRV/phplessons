@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['user'])) {
   header('Location: /');
 }
 ?>
@@ -8,7 +8,7 @@ if (isset($_SESSION['username'])) {
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Авторизацмя</title>
+    <title>Авторизация</title>
   </head>
   <body>
     <a href="/">Главная</a>

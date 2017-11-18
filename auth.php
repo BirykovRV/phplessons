@@ -21,8 +21,8 @@ if (isset($data['signup'])) {
     if ($row = $db->Find($table, $query, $arr)) {
       //проверяем на совпадение паролей
       if (password_verify($data['password'], $row['password'])) {
-        $_SESSION['username'] = $row['login'];
-        header('Refresh: 4; url="http://phplessons:8080/"');
+        $_SESSION['user'] = $row;
+        header('Refresh: 2; url="http://phplessons:8080/"');
         echo "Вы успешно авторизовались!";
       }
       else {
