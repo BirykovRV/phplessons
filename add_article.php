@@ -7,7 +7,7 @@
   <body>
 
 <a href="/">Главная</a>
-<form class="" action="articles.php" method="post">
+<form action="articles.php" method="post">
   <table>
     <tr>
       <td>Название:</td>
@@ -17,8 +17,10 @@
       <td>Статья:</td>
       <td><textarea style="resize: none;" name="article" rows="20" cols="50"></textarea></td>
     </tr>
+    <tr>
+      <td><input type="submit" name="create_article" value="Создать"></td>
+    </tr>
   </table>
-  <input type="button" name="create_article" value="Создать">
 </form>
 
 
