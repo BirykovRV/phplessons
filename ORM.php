@@ -58,7 +58,7 @@ class ORM
 		$this->DBH = null;
 	}
 
-	public function Find($table, $query = NULL, $data = array())
+	public function Find($table, $query = "", $data = "")
 	{
 		try {
 			$this->STH = $this->DBH->prepare("SELECT * FROM $table WHERE $query");
@@ -69,12 +69,33 @@ class ORM
 		}
 	}
 
-	public function FindAll($table, $query = NULL, $data = array())
+	public function FindAll($table, $query = "", $data = "")
 	{
 		try {
 			$this->STH = $this->DBH->prepare("SELECT * FROM $table WHERE $query");
 			$this->STH->execute($data);
 			return $row = $this->STH->fetchAll();
+		} catch (PDOException $e) {
+			return $e->getMessage();
+		}
+	}
+
+	public function FindAllBy($table, $colums)
+	{
+		try {
+			$this->STH = $this->DBH->prepare("SELECT $colums FROM $table");
+			$this->STH->execute();
+			return $row = $this->STH->fetchAll();
+		} catch (PDOException $e) {
+			return $e->getMessage();
+		}
+	}
+
+	public function GetUserById($id) {
+		try {
+			$this->STH = $this->DBH->prepare("SELECT `login` FROM users WHERE (userid = ?)");
+			$this->STH->execute($id);
+			return $row = $this->STH->fetch();
 		} catch (PDOException $e) {
 			return $e->getMessage();
 		}

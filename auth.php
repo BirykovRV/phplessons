@@ -38,4 +38,5 @@ if (isset($data['signup'])) {
 }
 else {
   //иначе переправляем на главную
+  header('Location:http://phplessons:8080/');
 }

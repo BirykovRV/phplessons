@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php
+require_once 'dbconnection.php';
+$db->Connect();
+// нашли все статьи по id
+$articles = $db->FindAllBy('articles', '*');
+arsort($articles);
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,6 +23,20 @@
 		<a href="logout.php" >Выход</a><br>
 		<?php endif ?>
 		<a href="callback_view.php">Форма обратной связи</a>
+
+    <!-- проходим по массиву и выводим статьи -->
+    <?php foreach ($articles as $key => $value): ?>
+      <!-- находим пользователя по id -->
+      <?php $user = $db->GetUserById(array($value['userid'])); ?>
+
+        <h1><?php echo $value['title']; ?></h1>
+        <p style="width: 700px;"><?php echo $value['article']; ?></p>
+        <div class="">
+          <h5>Создан: <?php echo $value['created'] . " / Автор: " . $user['login']; ?></h5>
+        </div>
+    <?php endforeach; ?>
+
     <script src="http://localhost:35729/livereload.js" charset="utf-8"></script>
   </body>
+  <?php $db->Close(); ?>
 </html>

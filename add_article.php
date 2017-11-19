@@ -1,17 +1,10 @@
 <?php
 require_once 'dbconnection.php';
-// подключились к базе
-$db->Connect();
 if(empty($_SESSION['user']))
 {
   //если не зареган и перешел напрямую
   header('Location: /');
 }
-// взяли id пользователя
-$userid = $_SESSION['user']['userid'];
-// нашли все статьи по id
-$articles = $db->FindAll('articles', 'userid = ?', array($userid));
-arsort($articles);
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,15 +35,7 @@ arsort($articles);
     </tr>
   </table>
 </form>
-<!-- проходим по массиву и выводим статьи -->
-<?php foreach ($articles as $key => $value): ?>
-    <h1><?php echo $value['title']; ?></h1>
-    <p style="width: 700px;"><?php echo $value['article']; ?></p>
-    <div class="">
-      <h5>Создан: <?php echo $value['created'] . " / Автор: " . $_SESSION['user']['login']; ?></h5>
-    </div>
 
-<?php endforeach; ?>
 
     <script src="http://localhost:35729/livereload.js" charset="utf-8"></script>
   </body>
