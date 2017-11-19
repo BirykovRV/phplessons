@@ -11,6 +11,7 @@ if(empty($_SESSION['user']))
 $userid = $_SESSION['user']['userid'];
 // нашли все статьи по id
 $articles = $db->FindAll('articles', 'userid = ?', array($userid));
+arsort($articles);
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +42,7 @@ $articles = $db->FindAll('articles', 'userid = ?', array($userid));
     </tr>
   </table>
 </form>
-проходим по массиву и выводим статьи
+<!-- проходим по массиву и выводим статьи -->
 <?php foreach ($articles as $key => $value): ?>
     <h1><?php echo $value['title']; ?></h1>
     <p style="width: 700px;"><?php echo $value['article']; ?></p>
