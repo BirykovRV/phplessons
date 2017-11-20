@@ -33,7 +33,7 @@ if (isset($_GET['call'])) {
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
     if (mail($to, $subject, $msg, $headers)) {
-      header('Refresh: 3; url="callback_view.php"');
+      header('Refresh: 3; url="http://'.$host.':8080/callback_view.php"');
       echo "Запрос отправлен успешно!";
     }
   }
@@ -43,5 +43,5 @@ if (isset($_GET['call'])) {
 }
 else {
   //если перешли сюда на прямую то возвращаем обратно
-  header('Location:callback_view.php');
+  header('Location:http://'.$host.':8080/callback_view.php');
 }

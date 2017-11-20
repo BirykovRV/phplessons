@@ -19,16 +19,16 @@ if (isset($data['create_article'])) {
 
     if ($user_article) {
       $_SESSION['message'] = 'Статья успешно добавлена!';
-      header('Location: http://phplessons:8080/add_article.php');
+      header('Location: http://'.$host.':8080/add_article.php');
     }
     else {
-      header('Location: http://phplessons:8080/add_article.php');
+      header('Location: http://'.$host.':8080/add_article.php');
       $_SESSION['err_message'] = 'Ошибка добавления статьи в БД!';
     }
   }
   else {
     $_SESSION['err_message'] = "Вы не заполнили все поля!";
-    header('Location:http://phplessons:8080/add_article.php');
+    header('Location:http://'.$host.':8080/add_article.php');
   }
 }
 else {

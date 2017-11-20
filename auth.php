@@ -22,21 +22,21 @@ if (isset($data['signup'])) {
       //проверяем на совпадение паролей
       if (password_verify($data['password'], $row['password'])) {
         $_SESSION['user'] = $row;
-        header('Refresh: 2; url="http://phplessons:8080/"');
+        header('Refresh: 2; url="http://'.$host.':8080/"');
         echo "Вы успешно авторизовались!";
       }
       else {
-        header('Location:http://phplessons:8080/auth_view.php');
+        header('Location:http://'.$host.':8080/auth_view.php');
         $_SESSION['err_message'] = "Логин и/или пароль не верны!";
       }
     }
     else {
-      header('Location:http://phplessons:8080/auth_view.php');
+      header('Location:http://'.$host.':8080/auth_view.php');
       $_SESSION['err_message'] = "Такого пользователя нет!";
     }
   }
 }
 else {
   //иначе переправляем на главную
-  header('Location:http://phplessons:8080/');
+  header('Location:http://'.$host.':8080/');
 }
