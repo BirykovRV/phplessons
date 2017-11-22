@@ -1,5 +1,6 @@
 <?php
 //email to support
+require_once 'dbconnection.php';
 $to = "r.v.birukov@yandex.ru";
 //subject
 $subject = "Call Back";
@@ -33,12 +34,13 @@ if (isset($_GET['call'])) {
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
     if (mail($to, $subject, $msg, $headers)) {
-      header('Refresh: 3; url="http://'.$host.':8080/callback_view.php"');
-      echo "Запрос отправлен успешно!";
+      $_SESSION['message'] = "Запрос отправлен успешно!";
+      header('Location:http://'.$host.':8080/callback_view.php');
     }
   }
   else {
-    echo "нельзя так";
+    $_SESSION['err_message'] = "Не заполенны все поля!";
+    header('Location:http://'.$host.':8080/callback_view.php');
   }
 }
 else {
