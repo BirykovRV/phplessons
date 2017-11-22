@@ -1,9 +1,5 @@
 <?php
-require_once 'dbconnection.php';
-$db->Connect();
-// нашли все статьи по id
-$articles = $db->FindAllBy('articles', '*');
-arsort($articles);
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,6 +8,9 @@ arsort($articles);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="/css/like.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/like.js"/></script>
     <title>Главное меню</title>
   </head>
   <body>
@@ -28,22 +27,10 @@ arsort($articles);
     <a href="Ajax.html">Тесты Ajax</a>
 
 
-      <!-- проходим по массиву и выводим статьи -->
-      <?php foreach ($articles as $key => $value): ?>
-        <!-- находим пользователя по id -->
-        <?php $user = $db->GetUserById(array($value['userid'])); ?>
-        <div class="articles">
-          <h1><?php echo $value['title']; ?></h1>
-          <p><?php echo $value['article']; ?></p>
-          <div class="">
-            <h5>Создан: <?php echo $value['created'] . " / Автор: " . $user['login']; ?></h5>
-          </div>
-        </div>
-      <?php endforeach; ?>
+      <?php require_once 'load_articles.php'; ?>
 
 
 
     <script src="http://localhost:35729/livereload.js" charset="utf-8"></script>
   </body>
-  <?php $db->Close(); ?>
 </html>

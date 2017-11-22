@@ -58,6 +58,16 @@ class ORM
 		$this->DBH = null;
 	}
 
+	public function Addlike($id){
+		/** Обновляем количество лайков в статье */
+		$this->STH = $this->DBH->prepare("UPDATE articles SET count_like = count_like+1  WHERE articleid = :id");
+		$this->STH->execute(array(':id'=>$id));
+
+		/** Выбираем количество лайков в статье */
+		$this->STH = $this->DBH->prepare("SELECT count_like FROM articles WHERE articleid = :id");
+		$this->STH->execute(array(':id'=>$id));
+	}
+
 	public function Find($table, $query = "", $data = "")
 	{
 		try {

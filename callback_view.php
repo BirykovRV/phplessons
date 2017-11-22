@@ -9,7 +9,7 @@
   </head>
   <body>
     <script type="text/javascript">
-      jQuery(function($){
+      $(function($){
         $('#phone').mask("+7(999) 999-99-99")
       })
     </script>
