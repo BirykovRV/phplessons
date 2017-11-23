@@ -2,9 +2,9 @@
 
 require_once 'ORM.php';
 
-$host = '10.87.6.140';
+$host = 'phplessons';
 
-$dbType = "mysql:host=$host;dbname=mydb";
+$dbType = "mysql:host=localhost;dbname=mydb";
 $username = "root";
 $password = "";
 

@@ -8,9 +8,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css/master.css">
-    <link rel="stylesheet" href="/css/like.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/like.js"/></script>
     <title>Главное меню</title>
   </head>
   <body>

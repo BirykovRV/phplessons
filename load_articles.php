@@ -15,9 +15,6 @@ arsort($articles);
     <div class="">
       <h5>Создан: <?php echo $value['created'] . " / Автор: " . $user['login']; ?></h5>
     </div>
-    <div class="like" data-id="<?php print $value['articleid'] ?>">
-      <span class="counter"><?php print $value['count_like'] ?></span>
-    </div>
   </div>
 <?php endforeach; ?>
 
