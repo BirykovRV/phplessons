@@ -44,6 +44,5 @@ if (isset($_SESSION['user'])) {
 
 
     <script src="js/validator.js" charset="utf-8"></script>
-    <script src="http://localhost:35729/livereload.js" charset="utf-8"></script>
   </body>
 </html>
